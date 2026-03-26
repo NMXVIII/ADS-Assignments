@@ -1,0 +1,7 @@
+def reverse_sentence (n) :
+    if n > 0 :
+        s = input()
+        reverse_sentence(n-1)
+        print(s)
+n = int(input())
+reverse_sentence(n)

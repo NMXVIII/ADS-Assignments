@@ -1,0 +1,7 @@
+def reverse_sequence(n):
+    if n > 0:
+        x = int(input())
+        reverse_sequence(n-1)
+        print(x, end=' ')
+n = int(input())
+reverse_sequence(n)

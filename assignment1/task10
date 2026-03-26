@@ -1,0 +1,22 @@
+def is_power_of_two(n):
+    if n < 0:
+        return False
+    if n == 0:
+        return False
+    if n == 1:
+        return True
+    if n % 2 != 0:
+        return False
+    return is_power_of_two(n // 2)
+
+for i in range(0, 10):
+    if is_power_of_two(i):
+        print(f"{i} is a power of two")
+    else:
+        print(f"{i} is not a power of two")
+print()
+for i in range(10, 33, 2):
+    if is_power_of_two(i):
+        print(f"{i} is a power of two")
+    else:
+        print(f"{i} is not a power of two")

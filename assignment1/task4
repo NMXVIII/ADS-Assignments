@@ -1,0 +1,5 @@
+def sum_b(b, n):
+    if n == 0:
+        return 1
+    return b**n + sum_b(b, n-1)
+print(sum_b(4, 3))
