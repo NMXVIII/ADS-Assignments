@@ -1,0 +1,38 @@
+#Implement a custom Queue data structure using only two Stacks.
+#  Provide the enqueue, dequeue, and peek operations.
+# CC: O(1) time , O(1) space.
+class QueueUsingStacks:
+    def __init__(self):
+        self.stack1 = []
+        self.stack2 = []
+
+    def enqueue(self, item):
+        self.stack1.append(item)
+
+    def dequeue(self):
+        if not self.stack2:
+            while self.stack1:
+                self.stack2.append(self.stack1.pop())
+        if not self.stack2:
+            return None
+        return self.stack2.pop()
+
+    def peek(self):
+        if not self.stack2:
+            while self.stack1:
+                self.stack2.append(self.stack1.pop())
+        if not self.stack2:
+            return None
+        return self.stack2[-1]
+
+q = QueueUsingStacks()
+q.enqueue(1)
+q.enqueue(2)
+q.enqueue(3)
+print("Peek:", q.peek())  # 1
+print("Dequeue:", q.dequeue())  # 1
+print("Peek after dequeue:", q.peek())  # 2
+q.enqueue(4)
+print("Dequeue:", q.dequeue())  # 2
+print("Dequeue:", q.dequeue())  # 3
+print("Dequeue:", q.dequeue())  # 4

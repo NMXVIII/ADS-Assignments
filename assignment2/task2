@@ -1,0 +1,47 @@
+#Implement a function to reverse a singly linked list in-place.
+#Your algorithm should use only O(1) extra space . CC: O(n) time, O(1) space
+
+class Node:
+    def __init__(self, data):
+        self.data = data 
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        curr = self.head
+        while curr.next:
+            curr = curr.next
+        curr.next = new_node
+    
+    def reverse(self):
+        prev = None
+        curr = self.head
+        while curr:
+            next_node = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_node
+        self.head = prev
+
+    def printList(self):
+        curr = self.head
+        while curr:
+            print(curr.data, end=" ")
+            curr = curr.next
+        print()
+
+lil=LinkedList()
+for val in [1, 2, 3, 4, 5]:
+    lil.append(val)
+print("Original list:")
+lil.printList()
+lil.reverse()
+print("Reversed list:")
+lil.printList()

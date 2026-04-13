@@ -1,0 +1,45 @@
+# Write a method to find the Lowest Common Ancestor (LCA)
+# of two given nodes in a Binary Search Tree.
+# CC: O(h) time, O(h) space.
+
+class BSTNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, data):
+        if not self.root:
+            self.root = BSTNode(data)
+        else:
+            curr = self.root
+            while True:
+                if data < curr.data:
+                    if not curr.left:
+                        curr.left = BSTNode(data)
+                        break
+                    curr = curr.left
+                else:
+                    if not curr.right:
+                        curr.right = BSTNode(data)
+                        break
+                    curr = curr.right
+
+    def lca(self, root, n1, n2):
+        if not root:
+            return None
+        if n1 < root.data and n2 < root.data:
+            return self.lca(root.left, n1, n2)   # both smaller, go left
+        if n1 > root.data and n2 > root.data:
+            return self.lca(root.right, n1, n2)  # both larger, go right
+        return root.data 
+    
+bst = BST()
+for val in [6 , 2, 8, 0, 4, 7, 9, 3 , 5]:
+    bst.insert(val)
+print(bst.lca(bst.root, 2, 8))  # 6
+print(bst.lca(bst.root, 2, 4))  # 2

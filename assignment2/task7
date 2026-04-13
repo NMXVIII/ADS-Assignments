@@ -1,0 +1,51 @@
+# Given an array of K sorted linked lists, merge them into one sorted linked list
+# and return it. Optimize your solution using a Min-Heap (Priority Queue).
+#CC : O(N log K) time, O(K) space.
+
+import heapq
+
+class ListNode:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+    def __lt__(self, other):
+        return self.data < other.data
+
+def mergeKLists(lists):
+    heap = []
+    for node in lists:    
+        if node:
+            heapq.heappush(heap, node)
+
+    dummy = ListNode(0)
+    current = dummy
+
+    while heap:
+        node = heapq.heappop(heap)
+        current.next = node
+        current = current.next
+        if node.next:
+            heapq.heappush(heap, node.next)
+
+    return dummy.next
+
+def buildList(values):
+    head = ListNode(values[0])
+    current = head
+    for val in values[1:]:
+        current.next = ListNode(val)
+        current = current.next
+    return head
+    
+def printList(node):
+    while node:
+        print(node.data, end=" -> " if node.next else "\n")
+        node = node.next
+
+l1 = buildList([1, 4, 7])
+l2 = buildList([2, 5, 8])
+l3 = buildList([3, 6, 9])
+result = mergeKLists([l1, l2, l3])
+print("Merged linked list:")
+printList(result)

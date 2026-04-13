@@ -1,0 +1,14 @@
+#Given a string, use a hash table to find the first non-repeating character 
+# and return its index. If it does not exist, return -1.
+#CC: O(n) time, O(n) space
+
+def firstNonRepeating(s):
+    count = {}
+    for char in s:
+        count[char] = count.get(char, 0 ) + 1
+    for i, char in enumerate(s):
+        if count[char] == 1:
+            return i
+    return -1
+
+print(firstNonRepeating("durarara!!")) #0 

@@ -1,0 +1,23 @@
+#Write a program to evaluate a given valid postfix expression
+# (Reverse Polish Notation) using a stack. CC : O(n) time, O(n) space
+
+def evaluatePostfix(expression):
+    stack = []
+    tokens = expression.split()
+    for token in tokens:
+        if token.lstrip('-').isdigit():
+            stack.append(int(token))
+        else:
+            b = stack.pop()
+            a = stack.pop()
+            if token == "+":
+                stack.append(a + b)
+            elif token == "-":
+                stack.append(a - b)
+            elif token == "*":
+                stack.append(a * b)
+            elif token == "/":
+                stack.append(int(a / b))
+    return stack[0]
+
+print(evaluatePostfix("2 3 + 5 *"))

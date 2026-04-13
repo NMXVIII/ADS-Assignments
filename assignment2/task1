@@ -1,0 +1,12 @@
+# Given an unsorted integer array of size N containing distinct numbers 
+# from 1 to N+1, write an efficient algorithm to find the missing number.
+# CC : O(n) time, O(1) space
+def missingNumber(arr):
+    n = len(arr) + 1 
+    totalSum = n * (n + 1) // 2 
+    arrSum = sum(arr)
+    missingNumber = totalSum - arrSum
+    return missingNumber
+
+print("Missing number is:", end=" ")
+print(missingNumber([1, 2, 3, 5]))
