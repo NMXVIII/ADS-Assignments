@@ -1,0 +1,60 @@
+# Convert dataset into Max-Heap (array-based).
+# Show state after heapification and after first extract-max.
+
+def heapify(arr, n, i):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+
+    if left < n and arr[left] > arr[largest]:
+        largest = left
+    if right < n and arr[right] > arr[largest]:
+        largest = right
+
+    if largest != i:
+        print(f"  Swap arr[{i}]={arr[i]} with arr[{largest}]={arr[largest]}: ", end="")
+        arr[i], arr[largest] = arr[largest], arr[i]
+        print(arr)
+        heapify(arr, n, largest)
+
+def buildMaxHeap(arr):
+    n = len(arr)
+    print("Building Max-Heap (heapifying from last non-leaf to root):")
+    for i in range(n // 2 - 1, -1, -1):
+        print(f"\nHeapifying at index {i} (value={arr[i]}):")
+        heapify(arr, n, i)
+
+arr = [17, 52, 61, 86, 63, 29, 14, 96, 19, 99]
+print("Original array:", arr)
+print()
+
+buildMaxHeap(arr)
+print(f"\nMax-Heap array: {arr}")
+print(f"Root (maximum element) = {arr[0]}")
+
+# First extract-max
+print("\n--- First Extract-Max Operation ---")
+n = len(arr)
+print(f"Swap root {arr[0]} with last element {arr[n-1]}: ", end="")
+arr[0], arr[n-1] = arr[n-1], arr[0]
+print(arr)
+extracted = arr.pop()
+print(f"Remove last element (was root): extracted = {extracted}")
+print(f"Heap after removal: {arr}")
+print(f"\nRestoring heap property (heapify from root):")
+heapify(arr, len(arr), 0)
+print(f"Heap after extract-max: {arr}")
+print(f"Max element extracted: {extracted}")
+
+# Complexity Analysis:
+# Build heap:   O(N)
+# Extract-max:  O(log N) — heapify after extraction
+# Full sort:    O(N log N)
+# Space:        O(1) — in-place, no extra array needed
+
+# Application:
+# A CPU task scheduler manages tasks with different priority levels.
+# Max-Heap is perfect because:
+# - Highest priority task is always at root → O(1) access
+# - Adding new task or extracting max is O(log N)
+# - In-place so memory usage is minimal

@@ -1,0 +1,56 @@
+# First provide sorted version of dataset
+# Trace Binary Search for Secondary Target T2 = 86
+# Show Low, High, Mid values at every step
+
+def binarySearch(arr, target):
+    low = 0
+    high = len(arr) - 1
+    step = 1
+
+    print(f"Searching for T2 = {target}...")
+    print()
+
+    while low <= high:
+        mid = (low + high) // 2
+        print(f"  Step {step}: Low={low} High={high} Mid={mid} arr[Mid]={arr[mid]}", end="")
+
+        if arr[mid] == target:
+            print(f" → FOUND ")
+            return mid, step
+        elif arr[mid] < target:
+            print(f" → {arr[mid]} < {target}, go RIGHT, new Low={mid+1}")
+            low = mid + 1
+        else:
+            print(f" → {arr[mid]} > {target}, go LEFT, new High={mid-1}")
+            high = mid - 1
+        step += 1
+
+    print("Not found!")
+    return -1, step
+
+original = [17, 52, 61, 86, 63, 29, 14, 96, 19, 99]
+arr_sorted = sorted(original)
+
+print("Original array:", original)
+print()
+print("Sorted array:  ", arr_sorted)
+print("Indices:       ", list(range(len(arr_sorted))))
+print()
+
+idx, steps = binarySearch(arr_sorted, 86)
+print()
+print(f"Result: T2=86 found at index {idx} in sorted array")
+print(f"Total steps: {steps}")
+
+# Complexity Analysis:
+# Best case:    O(1)     — target is middle element
+# Average case: O(log N)
+# Worst case:   O(log N) — always halving the search space
+# Space:        O(1)     — no extra memory needed
+
+# Application:
+# Locating a user ID in a sorted database of 1 million users.
+# Binary Search is ideal because:
+# - Only ~20 steps needed (log2(1,000,000) ≈ 20)
+# - Linear Search would need up to 1,000,000 comparisons
+# - Database is already sorted so Binary Search works perfectly

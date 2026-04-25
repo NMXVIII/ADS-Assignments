@@ -1,0 +1,38 @@
+# Trace Bubble Sort for first 3 full passes.
+# Show array state after each pass.
+# Explain Early Exit condition.
+
+def bubbleSort(arr):
+    n = len(arr)
+    for pass_num in range(1, 4):
+        swapped = False
+        print(f"\n--- Pass {pass_num} ---")
+        for j in range(0, n - pass_num):
+            if arr[j] > arr[j + 1]:
+                print(f"  arr[{j}]={arr[j]} > arr[{j+1}]={arr[j+1]} → SWAP: ", end="")
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                print(arr)
+                swapped = True
+            else:
+                print(f"  arr[{j}]={arr[j]} < arr[{j+1}]={arr[j+1]} → no swap")
+        print(f"\nArray after pass {pass_num}: {arr}")
+        if not swapped:
+            print("Early Exit! No swaps made — array is already sorted.")
+            return
+
+arr = [17, 52, 61, 86, 63, 29, 14, 96, 19, 99]
+print("Original array:", arr)
+bubbleSort(arr)
+
+# Complexity Analysis:
+# Best case:    O(N)   — already sorted, early exit after 1 pass
+# Average case: O(N^2)
+# Worst case:   O(N^2) — array sorted in reverse
+# Space:        O(1)   — in-place, no extra memory
+
+# Application:
+# A library catalog where only a few books are out of place.
+# Bubble Sort with Early Exit is ideal because:
+# - If nearly sorted, it exits early saving a lot of time
+# - Simple to implement and understand
+# - In-place so no extra memory needed

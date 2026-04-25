@@ -1,0 +1,47 @@
+#Using the first element as the Pivot, demonstrate the Partitioning step (Lomuto or Hoare scheme)
+#Clearly show the elements being swapped and the final position of the pivot.
+
+def partition(arr, start, end):
+    pivot = arr[start]
+    i = start + 1
+    print(f"\nPartitioning {arr[start:end+1]} with pivot={pivot}")
+    for j in range(start + 1, end + 1):
+        if arr[j] < pivot:
+            swap(arr, i, j)
+            i += 1
+    swap(arr, start, i - 1)
+    print(f"Pivot: {pivot}, final i: {i-1}")
+    print()
+    return i - 1
+   
+
+def swap(arr, i, j):
+    arr[i], arr[j] = arr[j], arr[i]
+    print(f"Swapped elements with indices {i} ({arr[i]}) & {j} ({arr[j]}): {arr}")
+
+
+def quickSort(arr, start , end):
+    if start < end:
+        pivotIndex = partition(arr, start, end) 
+        quickSort(arr, start, pivotIndex - 1) 
+        quickSort(arr, pivotIndex + 1, end)
+        
+
+arr = [17, 52, 61, 86, 63, 29, 14, 96, 19, 99]
+print("Original array:", arr)
+quickSort(arr, 0, len(arr) - 1)
+print("Sorted array:", arr)
+
+# Complexity Analysis:
+# Best Case: O(n log n) - pivot divides the array into two equal halves
+# Worst Case: O(n^2) - pivot is the smallest or largest element
+# Average Case: O(n log n) - random pivot selection
+# Space : O(log n) - recursive call stack
+
+# Application: (Quicksort for high-fq trading)
+# It Sorts in-place( no extra memory needed)
+# Avg case O(n log n) is very fast
+# Cache-friendly due to sequential memory access
+# Suitable for large datasets and real-time applications
+
+

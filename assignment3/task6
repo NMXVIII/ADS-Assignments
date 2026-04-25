@@ -1,0 +1,58 @@
+# Insert dataset into Hash Table of size M=7
+# using h(k) = k mod 7
+# Resolve collisions using Linear Probing
+
+M = 7
+table = [None] * M
+
+def hashFunction(key):
+    return key % M
+
+def insert(table, key):
+    h = hashFunction(key)
+    original_h = h
+    probe = 0
+
+    if table[h] is None:
+        table[h] = key
+        print(f"  Insert {key}: h({key}) = {key}%7 = {original_h} → placed at index {h}")
+    else:
+        while table[h] is not None:
+            print(f"  Insert {key}: h({key}) = {key}%7 = {original_h} → index {h} occupied by {table[h]} → COLLISION")
+            probe += 1
+            h = (original_h + probe) % M
+        table[h] = key
+        print(f"  Insert {key}: resolved → placed at index {h} after {probe} probe(s)")
+
+arr = [17, 52, 61, 86, 63, 29, 14, 96, 19, 99]
+print("Original array:", arr)
+print(f"Hash Table size M = {M}")
+print(f"Hash function: h(k) = k mod 7")
+print()
+print("Inserting elements:")
+print()
+
+for key in arr:
+    insert(table, key)
+    print(f"  Table state: {table}")
+    print()
+
+print("Final Hash Table:")
+print()
+for i in range(M):
+    if table[i] is not None:
+        print(f"  [{i}] = {table[i]}")
+    else:
+        print(f"  [{i}] = empty")
+
+# Complexity Analysis:
+# Average case: O(1) — direct index access with no collision
+# Worst case:   O(N) — all keys collide, linear probing scans all
+# Space:        O(M) — size of hash table
+
+# Application:
+# Creating a fast-access cache for a web server session tokens.
+# Hashing is ideal because:
+# - O(1) average lookup means session data retrieved instantly
+# - Linear Probing resolves collisions without extra memory
+# - Works well for fixed size cache like M=7 buckets

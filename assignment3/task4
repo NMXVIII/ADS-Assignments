@@ -1,0 +1,37 @@
+# Execute Linear Search for Primary Target T1 = 17
+# List number of comparisons made
+# State average-case time complexity
+
+def linearSearch(arr, target):
+    print(f"Searching for T1 = {target} in array...")
+    print()
+    comparisons = 0
+    for i in range(len(arr)):
+        comparisons += 1
+        if arr[i] == target:
+            print(f"  Step {comparisons}: arr[{i}] = {arr[i]} == {target} ✓ FOUND")
+            return i, comparisons
+        else:
+            print(f"  Step {comparisons}: arr[{i}] = {arr[i]} != {target} ✗")
+    return -1, comparisons
+
+arr = [17, 52, 61, 86, 63, 29, 14, 96, 19, 99]
+print("Array:", arr)
+print()
+idx, comps = linearSearch(arr, 17)
+print()
+print(f"Result: T1={arr[idx]} found at index {idx}")
+print(f"Total comparisons made: {comps}")
+
+# Complexity Analysis:
+# Best case:    O(1)   — target is first element (our case!)
+# Average case: O(N/2) = O(N) — target found in middle on average
+# Worst case:   O(N)   — target is last element or not found
+# Space:        O(1)   — no extra memory needed
+
+# Application:
+# Finding a specific file in an unsorted directory of 1000 items.
+# Linear Search is the only option here because:
+# - Directory is unsorted so Binary Search won't work
+# - No preprocessing needed, works on raw unsorted data
+# - Simple and reliable for small datasets
