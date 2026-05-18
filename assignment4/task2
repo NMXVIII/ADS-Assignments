@@ -59,3 +59,6 @@ if __name__ == "__main__":
     print(f"--- Task 2: Search & Traversal (Start Node: {start_node}) ---")
     print(f"DFS Traversal Order: {' -> '.join(graph.dfs(start_node))}")
     print(f"BFS Traversal Order: {' -> '.join(graph.bfs(start_node))}")
+
+    #Time Complexity : O(V + E)
+    #Space Complexity : O(V)
