@@ -1,0 +1,61 @@
+class Graph:
+    def __init__(self):
+        self.adj_list = {}
+
+    def add_vertex(self, v):
+        if v not in self.adj_list:
+            self.adj_list[v] = []
+
+    def add_edge(self, u, v, weight):
+        self.add_vertex(u)
+        self.add_vertex(v)
+        self.adj_list[u].append((v, weight))
+        self.adj_list[v].append((u, weight))
+
+    def dfs(self, start_node):
+        visited = set()
+        traversal_order = []
+
+        def _dfs_util(node):
+            visited.add(node)
+            traversal_order.append(node)
+            for neighbor, _ in sorted(self.adj_list[node]):
+                if neighbor not in visited:
+                    _dfs_util(neighbor)
+
+        _dfs_util(start_node)
+        return traversal_order
+
+    def bfs(self, start_node):
+        visited = set()
+        queue = [start_node]
+        visited.add(start_node)
+        traversal_order = []
+
+        while queue:
+            current_node = queue.pop(0)
+            traversal_order.append(current_node)
+
+            for neighbor, _ in sorted(self.adj_list[current_node]):
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+                    
+        return traversal_order
+
+
+if __name__ == "__main__":
+    graph = Graph()
+    for v in ['A', 'B', 'C', 'D', 'E', 'F']:
+        graph.add_vertex(v)
+        
+    graph.add_edge('B', 'A', 8)
+    graph.add_edge('C', 'B', 8)
+    graph.add_edge('D', 'A', 14)
+    graph.add_edge('E', 'B', 12)
+    graph.add_edge('F', 'C', 11)
+    
+    start_node = 'A'
+    print(f"--- Task 2: Search & Traversal (Start Node: {start_node}) ---")
+    print(f"DFS Traversal Order: {' -> '.join(graph.dfs(start_node))}")
+    print(f"BFS Traversal Order: {' -> '.join(graph.bfs(start_node))}")

@@ -1,0 +1,31 @@
+class Graph:
+    def __init__(self):
+        self.adjacency_list = {}
+
+    def add_vertex(self, v):
+        if v not in self.adjacency_list:
+            self.adjacency_list[v] = []
+
+    def add_edge(self, u, v, weight):
+        self.add_vertex(u)
+        self.add_vertex(v)
+        self.adjacency_list[u].append((v, weight))
+        self.adjacency_list[v].append((u, weight))
+
+    def print_adjacency_list(self):
+        print("--- Task 1: Adjacency List Representation ---")
+        for vertex in sorted(self.adjacency_list.keys()):
+            edges = ", ".join([f"({neighbor}, wt: {weight})" for neighbor, weight in self.adjacency_list[vertex]])
+            print(f"Vertex {vertex} -> {edges}")
+if __name__ == "__main__":
+    graph = Graph()
+
+    for v in ['A', 'B', 'C', 'D', 'E', 'F']:
+        graph.add_vertex(v)
+    graph.add_edge('B', 'A', 8)
+    graph.add_edge('C', 'B', 8)
+    graph.add_edge('D', 'A', 14)
+    graph.add_edge('E', 'B', 12)
+    graph.add_edge('F', 'C', 11)
+
+    graph.print_adjacency_list()

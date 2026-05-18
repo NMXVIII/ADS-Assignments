@@ -1,0 +1,67 @@
+import heapq
+
+class Graph:
+    def __init__(self):
+        self.adj_list = {}
+
+    def add_vertex(self, v):
+        if v not in self.adj_list:
+            self.adj_list[v] = []
+
+    def add_edge(self, u, v, weight):
+        self.add_vertex(u)
+        self.add_vertex(v)
+        self.adj_list[u].append((v, weight))
+        self.adj_list[v].append((u, weight))
+
+    def dijkstra(self, source):
+        distances = {vertex: float('inf') for vertex in self.adj_list}
+        distances[source] = 0
+        predecessors = {vertex: None for vertex in self.adj_list}
+        priority_queue = [(0, source)]
+        
+        while priority_queue:
+            current_distance, current_vertex = heapq.heappop(priority_queue)
+            
+            if current_distance > distances[current_vertex]:
+                continue
+                
+            for neighbor, weight in self.adj_list[current_vertex]:
+                distance = current_distance + weight
+                if distance < distances[neighbor]:
+                    distances[neighbor] = distance
+                    predecessors[neighbor] = current_vertex
+                    heapq.heappush(priority_queue, (distance, neighbor))
+                    
+        return distances, predecessors
+
+    def get_path(self, predecessors, target, source):
+        path = []
+        current = target
+        while current is not None:
+            path.append(current)
+            current = predecessors[current]
+        path.reverse()
+        return path if path[0] == source else []
+
+
+if __name__ == "__main__":
+    graph = Graph()
+    vertices = ['A', 'B', 'C', 'D', 'E', 'F']
+    for v in vertices:
+        graph.add_vertex(v)
+        
+    graph.add_edge('B', 'A', 8)
+    graph.add_edge('C', 'B', 8)
+    graph.add_edge('D', 'A', 14)
+    graph.add_edge('E', 'B', 12)
+    graph.add_edge('F', 'C', 11)
+    
+    source_node = 'D'
+    distances, predecessors = graph.dijkstra(source_node)
+    
+    print(f"--- Task 3: Shortest Path (Dijkstra from Source: {source_node}) ---")
+    for target in sorted(vertices):
+        path = graph.get_path(predecessors, target, source_node)
+        path_str = " -> ".join(path)
+        print(f"Target {target} | Distance: {distances[target]:<3} | Path: {path_str}")
