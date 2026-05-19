@@ -54,6 +54,10 @@ if __name__ == "__main__":
     graph.add_edge('D', 'A', 14)
     graph.add_edge('E', 'B', 12)
     graph.add_edge('F', 'C', 11)
+    graph.add_edge('E', 'C', 12)
+    graph.add_edge('F', 'A', 4)
+    graph.add_edge('C', 'A', 11)
+
     
     start_node = 'A'
     print(f"--- Task 2: Search & Traversal (Start Node: {start_node}) ---")
